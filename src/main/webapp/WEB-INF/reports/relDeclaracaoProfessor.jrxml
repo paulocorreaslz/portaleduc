@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificado" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="TITULO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIPO" class="java.lang.String"/>
+	<parameter name="ZONA" class="java.lang.Integer"/>
+	<parameter name="DATA_INI" class="java.util.Date"/>
+	<parameter name="DATA_FIM" class="java.util.Date"/>
+	<parameter name="CAMINHO_BRASAO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SECAO" class="java.lang.String"/>
+	<parameter name="APP_NAME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Bridge"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TRE_NAME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["TRIBUNAL REGIONAL ELEITORAL DO MARANHÃO"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TRE_DEPARTMENT" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SECRETARIA DE GESTÃO DE PESSOAS"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGES_DIR" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORT_DIR" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="turma.curso.nome" class="java.lang.String"/>
+	<field name="professor.nome" class="java.lang.String"/>
+	<field name="turma.nome" class="java.lang.String"/>
+	<field name="turma.cargaHoraria" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="turma.dataInicialT" class="java.util.Date"/>
+	<field name="turma.dataFinalT" class="java.util.Date"/>
+	<field name="turma.conteudo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="135" splitType="Stretch">
+			<line>
+				<reportElement key="line-2" positionType="FixRelativeToBottom" x="1" y="5" width="534" height="1" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-10" x="0" y="102" width="535" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TRE_DEPARTMENT}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-10" x="1" y="86" width="534" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TRE_NAME}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement key="image-1" x="240" y="14" width="64" height="64"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{IMAGES_DIR} + "brasao-report.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle-1" x="1" y="0" width="534" height="23" forecolor="#666666" backcolor="#CCCCCC"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="538" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-11" x="204" y="59" width="128" height="30"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="16" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="142" width="506" height="127" forecolor="#000000"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Declaramos, para os devidos fins, que o(a) servidor(a) " + $F{professor.nome} +" desempenhou a atividade de tutor-professor no curso de "+ $F{turma.curso.nome}+", no período de " + new SimpleDateFormat("EEEEE, ").format($F{turma.dataInicialT}).toLowerCase() + (new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date()).toLowerCase()) + " até " + new SimpleDateFormat("EEEEE, ").format($F{turma.dataFinalT}).toLowerCase() + (new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date()).toLowerCase()) + ", com carga horária de " + $F{turma.cargaHoraria}+ " horas-aula."]]></textFieldExpression>
+			</textField>
+			<image hAlign="Right" vAlign="Bottom">
+				<reportElement key="image-1" x="320" y="340" width="200" height="48"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{IMAGES_DIR} + "assinatura.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement key="rectangle-1" x="0" y="515" width="534" height="23" forecolor="#666666" backcolor="#CCCCCC"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-1" x="186" y="308" width="334" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="14" isItalic="false" pdfFontName="Helvetica-Oblique"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["São Luis, " + new SimpleDateFormat("EEEEE, ").format(new java.util.Date()).toLowerCase() + (new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date()).toLowerCase())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="518" width="355" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-1" x="14" y="6" width="334" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="8" isItalic="true" pdfFontName="Helvetica-Oblique"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{APP_NAME} + " - " + new SimpleDateFormat("EEEEE, ").format(new java.util.Date()) + (new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy '-' HH:mm:ss").format(new java.util.Date()).toLowerCase())]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-2" x="489" y="3" width="45" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="8" isItalic="true" pdfFontName="Helvetica-Oblique"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="414" y="3" width="75" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="8" isItalic="true" pdfFontName="Helvetica-Oblique"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-3" positionType="FixRelativeToBottom" x="1" y="3" width="534" height="1" forecolor="#000000"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

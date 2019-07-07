@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/jsp/decorators">
+    <decorator name="main" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    <decorator name="login" page="login.jsp">
+    	<pattern>/login</pattern>
+  	</decorator>
+  	<decorator name="blog" page="blog.jsp">
+    	<pattern>/blog*</pattern>
+  	</decorator>
+</decorators>
